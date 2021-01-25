@@ -1,0 +1,37 @@
+{
+  "name": "application-lottery-h5",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write '{build,src}/**/*.js'",
+    "lint": "eslint '{build,src}/**/*.js'",
+    "dev": "webpack serve -c build/webpack.js",
+    "build": "NODE_ENV=production webpack -c build/webpack.js"
+  },
+  "devDependencies": {
+    "@0y0/babel-preset-vanilla": "^1.0.1",
+    "@0y0/eslint-config-vanilla": "^1.1.2",
+    "@0y0/webpack-config-vanilla": "^1.0.0",
+    "@babel/core": "^7.12.10",
+    "eslint": "^7.18.0",
+    "prettier": "^2.2.1",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "babel": {
+    "presets": [
+      "@0y0/vanilla"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "@0y0/vanilla"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
+  },
+  "dependencies": {
+    "pixi.js": "^5.3.7"
+  }
+}
