@@ -1,7 +1,7 @@
 import { Application, Container } from 'pixi.js'
+import LaunchScene from '@app/components/scenes/Launch'
+import SicBoScene from '@app/components/scenes/sicBo/SicBo'
 import * as configs from './configs'
-import LaunchScene from '../scenes/Launch'
-import SicBoScene from '../scenes/SicBo'
 
 function Navigation() {
   const navigation = new Container()

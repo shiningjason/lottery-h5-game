@@ -6,9 +6,9 @@ export default async function ChipBoxView({
   y,
   chipSize,
   chipGap,
-  onChipChange
+  chipDollars,
+  onChangeChip
 }) {
-  const chipDollars = [1, 2, 5, 10, 20]
   const chipCount = chipDollars.length
   const view = new Container()
   view.x = x
@@ -21,14 +21,14 @@ export default async function ChipBoxView({
         dollar,
         x: index * (chipSize + chipGap),
         size: chipSize,
-        onSelectChange: handleChipSelectChange
+        onSelectChange: handleSelectChip
       })
     )
   )
   view.addChild(...chipViews)
   let selectedChip = null
 
-  function handleChipSelectChange({ view, dollar, selected }) {
+  function handleSelectChip({ view, dollar, selected }) {
     if (selected) {
       for (const chipView of chipViews) {
         if (chipView !== view) chipView.deselect()
@@ -37,7 +37,7 @@ export default async function ChipBoxView({
     const value = selected ? dollar : null
     if (value === selectedChip) return
     selectedChip = value
-    onChipChange?.(value)
+    onChangeChip?.(value)
   }
 
   return view
