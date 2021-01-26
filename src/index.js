@@ -1,2 +1,4 @@
-const text = 'Hello World'
-console.log(text)
+import App from './components/app/App'
+
+const app = new App()
+document.querySelector('#root').appendChild(app.view)

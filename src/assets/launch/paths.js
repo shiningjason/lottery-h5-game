@@ -1,1 +1,1 @@
-export { default as launchBg } from './bg'
+export { default as launchBg } from './bg.jpg'
