@@ -17,12 +17,39 @@ function loadChipAssets() {
   return chipAssetsPromise
 }
 
-export default async function ChipView({ dollar, x = 0, y = 0, size, scale }) {
+export default async function ChipView({
+  dollar,
+  x = 0,
+  y = 0,
+  size,
+  onSelectChange
+}) {
   const textures = await loadChipAssets()
   const view = new Sprite(textures[`$${dollar}`])
   view.x = x
   view.y = y
   view.width = size
   view.height = size
+  view.pivot.x = size / 2
+  view.pivot.y = size / 2
+  view.interactive = true
+  view.buttonMode = !!onSelectChange
+
+  const scaleX = view.scale.x
+  const scaleY = view.scale.y
+
+  let selected = false
+  view.select = () => handleSelect(true)
+  view.deselect = () => handleSelect(false)
+  view.on('click', () => handleSelect(!selected))
+
+  function handleSelect(value) {
+    if (value === selected) return
+    selected = value
+    view.scale.x = value ? scaleX * 1.1 : scaleX
+    view.scale.y = value ? scaleY * 1.1 : scaleY
+    onSelectChange?.({ view, dollar, selected })
+  }
+
   return view
 }
