@@ -1,7 +1,6 @@
 import { Loader } from 'pixi.js'
 
-export default function loadAssets(assetPaths) {
-  const loader = Loader.shared
+export default function loadAssets(assetPaths, loader = Loader.shared) {
   const assetKeys = Object.keys(assetPaths)
   assetKeys.forEach(key => loader.add(key, assetPaths[key]))
   return new Promise((resolve, reject) => {

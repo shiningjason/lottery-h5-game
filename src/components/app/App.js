@@ -1,16 +1,22 @@
-import { Application } from 'pixi.js'
-import { app as appConfig } from './configs'
-import GameScene from '../scenes/Game'
+import { Application, Container } from 'pixi.js'
+import * as configs from './configs'
+import LaunchScene from '../scenes/Launch'
+import SicBoScene from '../scenes/SicBo'
 
-export default class App {
-  #app
+function Navigation() {
+  const navigation = new Container()
+  const launchScene = LaunchScene()
+  navigation.addChild(launchScene)
+  ;(async () => {
+    const sicBoScene = await SicBoScene(configs.scene)
+    navigation.removeChild(launchScene)
+    navigation.addChild(sicBoScene)
+  })()
+  return navigation
+}
 
-  get view() {
-    return this.#app.view
-  }
-
-  constructor() {
-    this.#app = new Application(appConfig)
-    this.#app.stage.addChild(new GameScene().view)
-  }
+export default function App() {
+  const app = new Application(configs.app)
+  app.stage.addChild(Navigation())
+  return app
 }

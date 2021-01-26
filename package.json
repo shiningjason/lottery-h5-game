@@ -7,6 +7,10 @@
     "dev": "webpack serve -c build/webpack.js",
     "build": "NODE_ENV=production webpack -c build/webpack.js"
   },
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "pixi.js": "^5.3.7"
+  },
   "devDependencies": {
     "@0y0/babel-preset-vanilla": "^1.0.1",
     "@0y0/eslint-config-vanilla": "^1.1.2",
@@ -30,8 +34,5 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "none"
-  },
-  "dependencies": {
-    "pixi.js": "^5.3.7"
   }
 }
