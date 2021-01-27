@@ -29,6 +29,12 @@ export const getBetChipStyle = (w, h) => ({
   size: baseChipBoxStyle.chipSize
 })
 
+export const betChipPlacingStyle = {
+  margin: 80,
+  maxSize: baseChipBoxStyle.chipSize,
+  minSize: 24
+}
+
 export const betAreas = [
   { type: SicBoMarketType.Small, area: '118,102_118,260_308,260_308,102' },
   { type: SicBoMarketType.Big, area: '968,102_968,260_1158,260_1158,102' },

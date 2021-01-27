@@ -1,4 +1,3 @@
-import anime from 'animejs'
 import { TweenMax } from 'gsap'
 import { Container, Loader, Sprite } from 'pixi.js'
 import * as sicBoAssets from '@app/assets/sicBo'
@@ -11,6 +10,7 @@ import {
   getLayoutStyle,
   getChipBoxStyle,
   getBetChipStyle,
+  betChipPlacingStyle,
   betAreas as areas
 } from './settings'
 
@@ -23,6 +23,30 @@ function TextureView({ texture, x, y, width, height }) {
   view.width = width
   view.height = height
   return view
+}
+
+function animateBetChip(chipView, vertices) {
+  const { max, min } = Math
+  const { maxSize, minSize, margin } = betChipPlacingStyle
+  const xs = vertices.map(([x]) => x)
+  const ys = vertices.map(([, y]) => y)
+  const maxX = max(...xs)
+  const minX = min(...xs)
+  const maxY = max(...ys)
+  const minY = min(...ys)
+  const width = maxX - minX
+  const height = maxY - minY
+  const maxWidth = width - margin * 2
+  const maxHeight = height - margin * 2
+  const chipSize = max(min(maxWidth, maxHeight, maxSize), minSize)
+  const chipX = minX + (width - chipSize) / 2
+  const chipY = minY + (height - chipSize) / 2
+  TweenMax.to(chipView, 0.3, {
+    x: chipX,
+    y: chipY,
+    width: chipSize,
+    height: chipSize
+  })
 }
 
 export default async function SicBoScene({ width, height }) {
@@ -56,8 +80,7 @@ export default async function SicBoScene({ width, height }) {
     if (!currentChip) return
     const chipView = await ChipView({ dollar: currentChip, ...betChipStyle })
     scene.addChild(chipView)
-    anime({ targets: chipView, x: 0, y: 0, duration: 300, easing: 'easeInOutSine' }) 
-    // TweenMax.to(chipView, 0.3, { x: 0, y: 0 })
+    animateBetChip(chipView, vertices)
   }
 
   return scene
